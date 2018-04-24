@@ -8,8 +8,8 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     csso = require('gulp-csso'),
-    srcfiles = ['src/js/jquery.formValid.js'],
-    srccss = ['src/css/jquery.formValid.css'],
+    srcfiles = ['src/jquery.formValid.js'],
+    srccss = ['src/jquery.formValid.css'],
     distdir = 'dist',
     compression = {
         output: {
