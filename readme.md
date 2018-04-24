@@ -114,8 +114,8 @@ $('#form').formValid({
 Option `fields` is an array containing information about all fields. The first part of the array must have a name that matches the attribute `data-field` assigned to the field in the html code.
 
 Field options:
-Attribute            | Type                | Default        | Description
----                        | ---                    | ---                | ---
+Attribute | Type | Default | Description
+--- | --- | --- | ---
 `required`| *boolean* | `false` | Determines whether the field should be required when checking. Possible values: true, false
 `tests`| *Array* | - | Specifies a list of validation tests for the field. The table must be based on the `type` and `message` parameters. `type` specifies the type of test, `message` message that should appear when the field value fails the test.
 `change`| *Method* | - | It allows you to embed your own code that will be called when the field value changes.
