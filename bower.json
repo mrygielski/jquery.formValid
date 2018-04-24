@@ -1,0 +1,28 @@
+{
+	"name": "jquery.formValid",
+	"description": "jQuery Form Validation Plugin",
+	"license": "MIT",
+	"main": [
+		"dist/jquery.formValid.js",
+		"dist/jquery.formValid.min.js",
+		"dist/jquery.formValid.css",
+		"dist/jquery.formValid.min.css"
+	],
+	"keywords": [
+		"form",
+		"verification",
+		"testing",
+		"correct",
+		"input",
+		"inputs",
+		"errors",
+		"validation",
+		"valid",
+		"jQuery",
+		"jquery-plugin"
+	],
+	"ignore": [
+		"*",
+		"!/bower.json"
+	]
+}
