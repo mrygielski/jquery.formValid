@@ -119,52 +119,61 @@ function isset(variable) {
              * @param field
              * @private
              */
-			_tests : function(required, type, fValue, testMessage, field) {
-					
-					if (type == 'null' && required) { 
-						if (fValue.errors == 0) 
-							if (field.val() == '') {
-								_formValid.addError(field.parent(), testMessage);
-								fValue.errors++; 
-							} else _formValid.removeError(field.parent());
-					} 					 
-					if (type == 'number') { 
-						if (fValue.errors == 0) 
-							if (!_formValid.test(field, 'number')) {
-								_formValid.addError(field.parent(), testMessage);
-								fValue.errors++; 
-							} else _formValid.removeError(field.parent());
-					} 
-					if (type == 'email') { 
-						if (fValue.errors == 0) 
-							if (!_formValid.test(field, 'email')) {
-								_formValid.addError(field.parent(), testMessage);
-								fValue.errors++; 
-							} else _formValid.removeError(field.parent());
-					} 
-					if (type == 'letters') { 
-						if (fValue.errors == 0) 
-							if (!_formValid.test(field, 'letters')) {
-								_formValid.addError(field.parent(), testMessage);
-								fValue.errors++; 
-							} else _formValid.removeError(field.parent());
-					} 
-					if (type == 'postcode') { 
-						if (fValue.errors == 0) 
-							if (!_formValid.test(field, 'postcode')) {
-								_formValid.addError(field.parent(), testMessage);
-								fValue.errors++; 
-							} else _formValid.removeError(field.parent());
-					} 
-					if (type == 'phone') { 
-						if (fValue.errors == 0) 
-							if (!_formValid.test(field, 'phone')) {
-								_formValid.addError(field.parent(), testMessage);
-								fValue.errors++; 
-							} else _formValid.removeError(field.parent());
-					} 
-					
-				}
+			_tests : function(required, type, fValue, testMessage, field, regex) {
+					var xx=field.val();
+				if (!isset(regex)) regex = "";
+				
+				if (type == 'null' && required) { 
+					if (fValue.errors == 0) 
+						if (field.val() == '') {
+							_formValid.addError(field.parent(), testMessage);
+							fValue.errors++; 
+						} else _formValid.removeError(field.parent());
+				}	
+				if (regex != "") {
+					if (fValue.errors == 0) 
+						if (!xx.match(new RegExp(regex))) {
+							_formValid.addError(field.parent(), testMessage);
+							fValue.errors++; 
+						} else _formValid.removeError(field.parent());
+				}				
+				if (type == 'number') { 
+					if (fValue.errors == 0) 
+						if (!_formValid.test(field, 'number')) {
+							_formValid.addError(field.parent(), testMessage);
+							fValue.errors++; 
+						} else _formValid.removeError(field.parent());
+				} 
+				if (type == 'email') { 
+					if (fValue.errors == 0) 
+						if (!_formValid.test(field, 'email')) {
+							_formValid.addError(field.parent(), testMessage);
+							fValue.errors++; 
+						} else _formValid.removeError(field.parent());
+				} 
+				if (type == 'letters') { 
+					if (fValue.errors == 0) 
+						if (!_formValid.test(field, 'letters')) {
+							_formValid.addError(field.parent(), testMessage);
+							fValue.errors++; 
+						} else _formValid.removeError(field.parent());
+				} 
+				if (type == 'postcode') { 
+					if (fValue.errors == 0) 
+						if (!_formValid.test(field, 'postcode')) {
+							_formValid.addError(field.parent(), testMessage);
+							fValue.errors++; 
+						} else _formValid.removeError(field.parent());
+				} 
+				if (type == 'phone') { 
+					if (fValue.errors == 0) 
+						if (!_formValid.test(field, 'phone')) {
+							_formValid.addError(field.parent(), testMessage);
+							fValue.errors++; 
+						} else _formValid.removeError(field.parent());
+				} 
+				
+			}
 			
 		};
 		
@@ -200,17 +209,18 @@ function isset(variable) {
 									$.each(fValue.tests, function(tKey, tValue) {										
 													
 										var testType = tValue.type;
+										var testRegEx = tValue.regex;
 										var testMessage = tValue.message;
 										
 										if (fieldRequired) {
 													
-											_formValid._tests(true, testType, fValue, testMessage, field);
+											_formValid._tests(true, testType, fValue, testMessage, field, testRegEx);
 																										
 										} else {
 											
 											if (field.val() != '') {
 										 
-												_formValid._tests(false, testType, fValue, testMessage, field);
+												_formValid._tests(false, testType, fValue, testMessage, field, testRegEx);
 												
 											}
 											
@@ -252,6 +262,7 @@ function isset(variable) {
 							
 							if (fieldRequired) {
 										
+								if (testType != 'null') _formValid._tests(true, 'null', fValue, 'This field is required', field); else
 								_formValid._tests(true, testType, fValue, testMessage, field);
 																							
 							} else {

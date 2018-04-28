@@ -140,6 +140,17 @@ Name            | Description
 `phone`| Checks the correctness of the telephone number.
 `postcode`| Checks the correctness of the postal code (Poland).
 
+You can also use the `regex` parameter instead of the test name, so you can define your own regex. Example:
+
+```javascript
+"tests": [
+	{
+		"regex": "^[A-Z]+$", 
+		"message": "Only upper-case letter"
+	}
+]
+```
+
 ## Installation
 
 You can install jquery.formValid by using [Bower](http://bower.io/).
@@ -159,6 +170,12 @@ Create distribution version
 npm install
 ./gulp
 ```
+
+## Changelog
+
+Version            | Date | Change
+---               | --- | ---
+1.0.1 |2018-04-28| Addition of own regex definitions 
 
 ## License
 

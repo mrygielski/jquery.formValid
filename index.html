@@ -22,8 +22,6 @@
             <h1><a id="formValid_jQuery_Plugin_0"></a>formValid jQuery Plugin</h1>
 <h2><a id="Demo__Examples_2"></a>Demo &amp; Examples</h2>
 <p><a href="https://mrygielski.github.io/jquery.formValid/">https://mrygielski.github.io/jquery.formValid/</a></p>
-<p>Demo 1 - <a href="https://mrygielski.github.io/jquery.formValid/examples/demo1.html">https://mrygielski.github.io/jquery.formValid/examples/demo1.html</a><br>
-Demo 2 - <a href="https://mrygielski.github.io/jquery.formValid/examples/demo2.html">https://mrygielski.github.io/jquery.formValid/examples/demo2.html</a></p>
 <h2><a id="Usage_6"></a>Usage</h2>
 <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-title">form</span> <span class="hljs-attribute">method</span>=<span class="hljs-value">"post"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"form"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"row"</span>&gt;</span>
@@ -214,7 +212,15 @@ $(<span class="hljs-string">'button[type="submit"]'</span>).click(<span class="h
 </tr>
 </tbody>
 </table>
-<h2><a id="Installation_142"></a>Installation</h2>
+<p>You can also use the <code>regex</code> parameter instead of the test name, so you can define your own regex. Example:</p>
+<pre><code class="language-javascript"><span class="hljs-string">"tests"</span>: [
+    {
+        <span class="hljs-string">"regex"</span>: <span class="hljs-string">"^[A-Z]+$"</span>, 
+        <span class="hljs-string">"message"</span>: <span class="hljs-string">"Only upper-case letter"</span>
+    }
+]
+</code></pre>
+<h2><a id="Installation_153"></a>Installation</h2>
 <p>You can install jquery.formValid by using <a href="https://bower.io/">Bower</a>.</p>
 <pre><code class="language-bash">bower install jquery.formValid
 </code></pre>
@@ -225,7 +231,24 @@ $(<span class="hljs-string">'button[type="submit"]'</span>).click(<span class="h
 <pre><code>npm install
 ./gulp
 </code></pre>
-<h2><a id="License_156"></a>License</h2>
+<h2><a id="Changelog_173"></a>Changelog</h2>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0.1</td>
+<td>2018-04-28</td>
+<td>Addition of own regex definitions</td>
+</tr>
+</tbody>
+</table>
+<h2><a id="License_179"></a>License</h2>
 <p>This plugin is available under <a href="https://opensource.org/licenses/mit-license.php">the MIT license</a>.</p>
 		</div>
     </section>

@@ -1,5 +1,6 @@
 {
 	"name": "jquery.formValid",
+    "version": "1.0.1",
 	"description": "jQuery Form Validation Plugin",
 	"license": "MIT",
 	"main": [

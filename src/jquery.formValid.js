@@ -27,277 +27,288 @@
  * ========================================================== */
 
 function isset(variable) {
-	return typeof variable !== 'undefined' ? true : false;
+    return typeof variable !== 'undefined' ? true : false;
 }
 
 (function ( $ ) {
 
     $.fn.formValid = function(options) {
 
-		var opts = $.extend( {}, $.fn.formValid.defaults, options );
-		var _formValid = {};
+        var opts = $.extend( {}, $.fn.formValid.defaults, options );
+        var _formValid = {};
 
-		_formValid = {
+        _formValid = {
 
-			/**
-			 * Validation test methods
-			 * @param el
-			 * @param type
+            /**
+             * Validation test methods
+             * @param el
+             * @param type
              * @returns {boolean}
              */
-			test : function(el, type) {
-			
-				var value = el.val();
-			
-				if (type == 'postcode') {
+            test : function(el, type) {
+            
+                var value = el.val();
+            
+                if (type == 'postcode') {
 
-					if (value.match('^[0-9]{2}\-[0-9]{3}$')) return true; else return false;
+                    if (value.match('^[0-9]{2}\-[0-9]{3}$')) return true; else return false;
 
-				}
+                }
 
-				if (type == 'email') {
+                if (type == 'email') {
 
-					var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-					return regex.test(value);
+                    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    return regex.test(value);
 
-				}
+                }
 
-				if (type == 'number') {
+                if (type == 'number') {
 
-				   return /^-?[\d.]+(?:e-?\d+)?$/.test(value);
+                   return /^-?[\d.]+(?:e-?\d+)?$/.test(value);
 
-				}
+                }
 
-				if (type == 'letters') {
+                if (type == 'letters') {
 
-				   return /^[a-zA-Z]*$/.test(value);
+                   return /^[a-zA-Z]*$/.test(value);
 
-				}
+                }
 
-				if (type == 'phone') {
+                if (type == 'phone') {
 
-					var regex = /^\+?(\d.*){3,}$/;
-					return regex.test(value);
+                    var regex = /^\+?(\d.*){3,}$/;
+                    return regex.test(value);
 
-				}
-			
-			},
-		
-			/**
-			 * Adds an error mark
-			 * @param el
+                }
+            
+            },
+        
+            /**
+             * Adds an error mark
+             * @param el
              * @param message
              */
-			addError : function(el, message) {
-				
-				el.addClass('error');
-				el.find('input,textarea').addClass('error');
-				if (message == '') {
-					el.find('.valid-message').hide();
-				} else el.find('.valid-message').html(message);
+            addError : function(el, message) {
+                
+                el.addClass('error');
+                el.find('input,textarea').addClass('error');
+                if (message == '') {
+                    el.find('.valid-message').hide();
+                } else el.find('.valid-message').html(message);
 
-			},
+            },
 
-			/**
-			 * Removes the error mark
-			 * @param el
+            /**
+             * Removes the error mark
+             * @param el
              */
-			removeError : function(el) {
+            removeError : function(el) {
 
-				el.removeClass('error');
-				el.find('input,textarea').removeClass('error');
-				el.find('.valid-message').html('');
+                el.removeClass('error');
+                el.find('input,textarea').removeClass('error');
+                el.find('.valid-message').html('');
 
-			},
+            },
 
-			/**
-			 * Management method for individual tests
-			 * @param required
-			 * @param type
-			 * @param fValue
+            /**
+             * Management method for individual tests
+             * @param required
+             * @param type
+             * @param fValue
              * @param testMessage
              * @param field
              * @private
              */
-			_tests : function(required, type, fValue, testMessage, field) {
-					
-					if (type == 'null' && required) { 
-						if (fValue.errors == 0) 
-							if (field.val() == '') {
-								_formValid.addError(field.parent(), testMessage);
-								fValue.errors++; 
-							} else _formValid.removeError(field.parent());
-					} 					 
-					if (type == 'number') { 
-						if (fValue.errors == 0) 
-							if (!_formValid.test(field, 'number')) {
-								_formValid.addError(field.parent(), testMessage);
-								fValue.errors++; 
-							} else _formValid.removeError(field.parent());
-					} 
-					if (type == 'email') { 
-						if (fValue.errors == 0) 
-							if (!_formValid.test(field, 'email')) {
-								_formValid.addError(field.parent(), testMessage);
-								fValue.errors++; 
-							} else _formValid.removeError(field.parent());
-					} 
-					if (type == 'letters') { 
-						if (fValue.errors == 0) 
-							if (!_formValid.test(field, 'letters')) {
-								_formValid.addError(field.parent(), testMessage);
-								fValue.errors++; 
-							} else _formValid.removeError(field.parent());
-					} 
-					if (type == 'postcode') { 
-						if (fValue.errors == 0) 
-							if (!_formValid.test(field, 'postcode')) {
-								_formValid.addError(field.parent(), testMessage);
-								fValue.errors++; 
-							} else _formValid.removeError(field.parent());
-					} 
-					if (type == 'phone') { 
-						if (fValue.errors == 0) 
-							if (!_formValid.test(field, 'phone')) {
-								_formValid.addError(field.parent(), testMessage);
-								fValue.errors++; 
-							} else _formValid.removeError(field.parent());
-					} 
-					
-				}
-			
-		};
-		
-		return {
+            _tests : function(required, type, fValue, testMessage, field, regex) {
+                    var xx=field.val();
+                if (!isset(regex)) regex = "";
+                
+                if (type == 'null' && required) { 
+                    if (fValue.errors == 0) 
+                        if (field.val() == '') {
+                            _formValid.addError(field.parent(), testMessage);
+                            fValue.errors++; 
+                        } else _formValid.removeError(field.parent());
+                }    
+                if (regex != "") {
+                    if (fValue.errors == 0) 
+                        if (!xx.match(new RegExp(regex))) {
+                            _formValid.addError(field.parent(), testMessage);
+                            fValue.errors++; 
+                        } else _formValid.removeError(field.parent());
+                }                
+                if (type == 'number') { 
+                    if (fValue.errors == 0) 
+                        if (!_formValid.test(field, 'number')) {
+                            _formValid.addError(field.parent(), testMessage);
+                            fValue.errors++; 
+                        } else _formValid.removeError(field.parent());
+                } 
+                if (type == 'email') { 
+                    if (fValue.errors == 0) 
+                        if (!_formValid.test(field, 'email')) {
+                            _formValid.addError(field.parent(), testMessage);
+                            fValue.errors++; 
+                        } else _formValid.removeError(field.parent());
+                } 
+                if (type == 'letters') { 
+                    if (fValue.errors == 0) 
+                        if (!_formValid.test(field, 'letters')) {
+                            _formValid.addError(field.parent(), testMessage);
+                            fValue.errors++; 
+                        } else _formValid.removeError(field.parent());
+                } 
+                if (type == 'postcode') { 
+                    if (fValue.errors == 0) 
+                        if (!_formValid.test(field, 'postcode')) {
+                            _formValid.addError(field.parent(), testMessage);
+                            fValue.errors++; 
+                        } else _formValid.removeError(field.parent());
+                } 
+                if (type == 'phone') { 
+                    if (fValue.errors == 0) 
+                        if (!_formValid.test(field, 'phone')) {
+                            _formValid.addError(field.parent(), testMessage);
+                            fValue.errors++; 
+                        } else _formValid.removeError(field.parent());
+                } 
+                
+            }
+            
+        };
+        
+        return {
 
-			/**
-			 * Carries out a validation test for the modified field after a specific timeout value.
-			 * @param timeout
+            /**
+             * Carries out a validation test for the modified field after a specific timeout value.
+             * @param timeout
              */
-			keypress : function(timeout) {
-				
-				$('[data-field]').on("change keyup paste", function() {
-					
-					var _this = $(this);
-					var getFieldName = _this.attr('data-field'); 
-				
-					$(this).delayKeyup(function(e) { 
-						
-						$.each(opts.fields, function(fKey, fValue) {
-			
-							var field = $('[data-field="' + fKey + '"]');
-							var fieldName = fKey;
-							var fieldRequired = isset(fValue.required) ? fValue.required : false;
-							
-							if (fieldName == getFieldName) {
-								
-								if (isset(fValue.change)) fValue.change(_this);
+            keypress : function(timeout) {
+                
+                $('[data-field]').on("change keyup paste", function() {
+                    
+                    var _this = $(this);
+                    var getFieldName = _this.attr('data-field'); 
+                
+                    $(this).delayKeyup(function(e) { 
+                        
+                        $.each(opts.fields, function(fKey, fValue) {
+            
+                            var field = $('[data-field="' + fKey + '"]');
+                            var fieldName = fKey;
+                            var fieldRequired = isset(fValue.required) ? fValue.required : false;
+                            
+                            if (fieldName == getFieldName) {
+                                
+                                if (isset(fValue.change)) fValue.change(_this);
 
-								fValue.errors = 0;
-											
-								if (isset(fValue.tests)) {
+                                fValue.errors = 0;
+                                            
+                                if (isset(fValue.tests)) {
 
-									$.each(fValue.tests, function(tKey, tValue) {										
-													
-										var testType = tValue.type;
-										var testMessage = tValue.message;
-										
-										if (fieldRequired) {
-													
-											_formValid._tests(true, testType, fValue, testMessage, field);
-																										
-										} else {
-											
-											if (field.val() != '') {
-										 
-												_formValid._tests(false, testType, fValue, testMessage, field);
-												
-											}
-											
-										}
-										
-									});
+                                    $.each(fValue.tests, function(tKey, tValue) {                                        
+                                                    
+                                        var testType = tValue.type;
+                                        var testRegEx = tValue.regex;
+                                        var testMessage = tValue.message;
+                                        
+                                        if (fieldRequired) {
+                                                    
+                                            _formValid._tests(true, testType, fValue, testMessage, field, testRegEx);
+                                                                                                        
+                                        } else {
+                                            
+                                            if (field.val() != '') {
+                                         
+                                                _formValid._tests(false, testType, fValue, testMessage, field, testRegEx);
+                                                
+                                            }
+                                            
+                                        }
+                                        
+                                    });
 
-								}
-							
-							}
-						  
-						});
-					
-					}, timeout);	
-					
-				}); 
-				
-			},
+                                }
+                            
+                            }
+                          
+                        });
+                    
+                    }, timeout);    
+                    
+                }); 
+                
+            },
 
-			/**
-			 * Performs a validation test of all defined fields.
-			 */
-			test : function() {
-						
-				$.each(opts.fields, function(fKey, fValue) {
-	
-					var field = $('[data-field="' + fKey + '"]');
-					var fieldName = fKey;
-					var fieldRequired = isset(fValue.required) ? fValue.required : false;
-					
-					fValue.errors = 0;
-								
-					if (isset(fValue.tests)) {
-
-						$.each(fValue.tests, function(tKey, tValue) {										
-										
-							var testType = tValue.type;
-							var testMessage = tValue.message;
-							
-							if (fieldRequired) {
-										
-								_formValid._tests(true, testType, fValue, testMessage, field);
-																							
-							} else {
-								
-								if (field.val() != '') {
-							 
-									_formValid._tests(false, testType, fValue, testMessage, field);
-									
-								}
-								
-							}
-							
-						});
-
-					}
-				  
-				});
-					
-			},
-
-			/**
-			 * Returns information in the form of a number if the form has validation errors.
-			 * @returns {number}
+            /**
+             * Performs a validation test of all defined fields.
              */
-			errors : function() {
+            test : function() {
+                        
+                $.each(opts.fields, function(fKey, fValue) {
+    
+                    var field = $('[data-field="' + fKey + '"]');
+                    var fieldName = fKey;
+                    var fieldRequired = isset(fValue.required) ? fValue.required : false;
+                    
+                    fValue.errors = 0;
+                                
+                    if (isset(fValue.tests)) {
 
-				var num = 0;
-				$.each(opts.fields, function(fKey, fValue) {
+                        $.each(fValue.tests, function(tKey, tValue) {                                        
+                                        
+                            var testType = tValue.type;
+                            var testMessage = tValue.message;
+                            
+                            if (fieldRequired) {
+                                        
+                                if (testType != 'null') _formValid._tests(true, 'null', fValue, 'This field is required', field); else
+                                _formValid._tests(true, testType, fValue, testMessage, field);
+                                                                                            
+                            } else {
+                                
+                                if (field.val() != '') {
+                             
+                                    _formValid._tests(false, testType, fValue, testMessage, field);
+                                    
+                                }
+                                
+                            }
+                            
+                        });
 
-					num += fValue.errors;
+                    }
+                  
+                });
+                    
+            },
 
-				});
+            /**
+             * Returns information in the form of a number if the form has validation errors.
+             * @returns {number}
+             */
+            errors : function() {
 
-				return num;
+                var num = 0;
+                $.each(opts.fields, function(fKey, fValue) {
 
-			}
-			
-		}
+                    num += fValue.errors;
+
+                });
+
+                return num;
+
+            }
+            
+        }
         
     };
-	
-	$.fn.formValid.defaults = {
-		
-		fields: {}
-		
-	};
+    
+    $.fn.formValid.defaults = {
+        
+        fields: {}
+        
+    };
     
     $.fn.delayKeyup = function(callback, ms) {
         var timer = 0;
