@@ -114,6 +114,7 @@ $('#form').formValid({
 Option `fields` is an array containing information about all fields. The first part of the array must have a name that matches the attribute `data-field` assigned to the field in the html code.
 
 Field options:
+
 Attribute | Type | Default | Description
 --- | --- | --- | ---
 `required`| *boolean* | `false` | Determines whether the field should be required when checking. Possible values: true, false
