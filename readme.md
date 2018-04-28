@@ -163,7 +163,7 @@ bower install jquery.formValid
 Or you can install it through [npm](https://www.npmjs.com/):
 
 ```
-npm install --save jquery.formValid
+npm install --save jquery.formvalid
 ```
 
 Create distribution version
