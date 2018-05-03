@@ -1,6 +1,6 @@
 {
   "name": "jquery.formvalid",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "title": "formValid jQuery Plugin",
   "description": "jQuery Form Validation Plugin",
   "author": {
@@ -16,12 +16,18 @@
   "bugs": {
     "url": "https://github.com/mrygielski/jquery.formValid/issues"
   },
-  "main": "src/jquery.formValid.js",
+  "main": [
+	"dist/jquery.formValid.js"
+  ],
   "files": [
-    "dist/jquery.formValid.js",
-    "dist/jquery.formValid.min.js",
-    "dist/jquery.formValid.css",
-    "dist/jquery.formValid.min.css"
+    "dist",
+    "src",
+    "lib",
+    "examples",
+    "css",
+	"gulpfile.js",
+	"gulp",
+	"index.html"
   ],
   "keywords": [
     "form",
@@ -34,9 +40,12 @@
     "validation",
     "valid",
     "jQuery",
-    "jquery-plugin"
+    "jquery-plugin",
+	"front-end",
+	"html",
+	"css"
   ],
-  "dependencies": {
+  "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-csso": "^3.0.1",
