@@ -147,6 +147,7 @@ function isset(variable) {
 				if (type == 'email') { 
 					if (fValue.errors == 0) 
 						if (!_formValid.test(field, 'email')) {
+							console.log('error')
 							_formValid.addError(field.parent(), testMessage);
 							fValue.errors++; 
 						} else _formValid.removeError(field.parent());
@@ -206,16 +207,15 @@ function isset(variable) {
 											
 								if (isset(fValue.tests)) {
 
-									$.each(fValue.tests, function(tKey, tValue) {										
-													
+									$.each(fValue.tests, function(tKey, tValue) {												
 										var testType = tValue.type;
 										var testRegEx = tValue.regex;
 										var testMessage = tValue.message;
 										
 										if (fieldRequired) {
-													
+												 
 											_formValid._tests(true, testType, fValue, testMessage, field, testRegEx);
-																										
+											
 										} else {
 											
 											if (field.val() != '') {
@@ -256,20 +256,19 @@ function isset(variable) {
 					if (isset(fValue.tests)) {
 
 						$.each(fValue.tests, function(tKey, tValue) {										
-										
 							var testType = tValue.type;
+							var testRegEx = tValue.regex;
 							var testMessage = tValue.message;
 							
 							if (fieldRequired) {
-										
-								if (testType != 'null') _formValid._tests(true, 'null', fValue, 'This field is required', field); else
-								_formValid._tests(true, testType, fValue, testMessage, field);
-																							
+									 
+								_formValid._tests(true, testType, fValue, testMessage, field, testRegEx);
+								
 							} else {
 								
 								if (field.val() != '') {
 							 
-									_formValid._tests(false, testType, fValue, testMessage, field);
+									_formValid._tests(false, testType, fValue, testMessage, field, testRegEx);
 									
 								}
 								
